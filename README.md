@@ -1,7 +1,8 @@
-# Rosa Premium V9
+# Rosa Premium V10
 
-Refines:
-- map surroundings with intro, arrival tips and better visual hierarchy
-- keeps the large footer logo as a subtle, intentional watermark
-- adds a signature footer statement
-- preserves Square sync
+Focused correction release:
+- rebuilt header hierarchy
+- rebuilt map section
+- removed giant repeated footer logo
+- simplified and balanced footer
+- preserved Square sync and all dynamic services

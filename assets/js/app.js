@@ -290,9 +290,8 @@ function hydratePremiumMedia(list){
 
 /* V8 — live salon status */
 function updateLocationStatus(){
-  const wrap=document.querySelector("#location-status");
   const text=document.querySelector("#location-status-text");
-  if(!wrap||!text) return;
+  if(!text) return;
 
   const parts=new Intl.DateTimeFormat("en-US",{
     timeZone:"America/Chicago",
@@ -307,20 +306,12 @@ function updateLocationStatus(){
   const minute=Number(parts.find(p=>p.type==="minute")?.value||0);
   const currentMinutes=hour*60+minute;
   const isWeekday=["Mon","Tue","Wed","Thu","Fri"].includes(weekday);
-  const isOpen=isWeekday&&currentMinutes>=9*60&&currentMinutes<17*60;
+  const isOpen=isWeekday&&currentMinutes>=540&&currentMinutes<1020;
 
-  wrap.classList.toggle("is-open",isOpen);
-  wrap.classList.toggle("is-closed",!isOpen);
-
-  if(isOpen){
-    const minutesLeft=17*60-currentMinutes;
-    const hoursLeft=Math.floor(minutesLeft/60);
-    text.textContent=hoursLeft>0?`Open now · closes in about ${hoursLeft} hr`:"Open now · closes soon";
-  }else{
-    text.textContent=isWeekday?"Closed now · opens tomorrow at 9 AM":"Closed today · opens Monday at 9 AM";
-  }
+  text.textContent=isOpen
+    ? "Open now · closes at 5:00 PM"
+    : (isWeekday ? "Closed now · opens tomorrow at 9:00 AM" : "Closed today · opens Monday at 9:00 AM");
 }
-
 updateLocationStatus();
 window.setInterval(updateLocationStatus,60000);
 
