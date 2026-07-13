@@ -1,7 +1,9 @@
-# Rosa Premium V7
+# Rosa Premium V8
 
-Adds:
-- dynamic hero background from Square service images
-- featured styles rail
-- premium Google map section
-- keeps Square catalog sync and all V6 production polish
+Map-focused release:
+- premium two-column location experience
+- live open/closed salon status in America/Chicago
+- clearer address, call and directions actions
+- branded map pin card
+- polished mobile layout
+- Square sync preserved

@@ -286,3 +286,40 @@ function hydratePremiumMedia(list){
       </article>`).join("");
   }
 }
+
+
+/* V8 — live salon status */
+function updateLocationStatus(){
+  const wrap=document.querySelector("#location-status");
+  const text=document.querySelector("#location-status-text");
+  if(!wrap||!text) return;
+
+  const parts=new Intl.DateTimeFormat("en-US",{
+    timeZone:"America/Chicago",
+    weekday:"short",
+    hour:"2-digit",
+    minute:"2-digit",
+    hour12:false
+  }).formatToParts(new Date());
+
+  const weekday=parts.find(p=>p.type==="weekday")?.value;
+  const hour=Number(parts.find(p=>p.type==="hour")?.value||0);
+  const minute=Number(parts.find(p=>p.type==="minute")?.value||0);
+  const currentMinutes=hour*60+minute;
+  const isWeekday=["Mon","Tue","Wed","Thu","Fri"].includes(weekday);
+  const isOpen=isWeekday&&currentMinutes>=9*60&&currentMinutes<17*60;
+
+  wrap.classList.toggle("is-open",isOpen);
+  wrap.classList.toggle("is-closed",!isOpen);
+
+  if(isOpen){
+    const minutesLeft=17*60-currentMinutes;
+    const hoursLeft=Math.floor(minutesLeft/60);
+    text.textContent=hoursLeft>0?`Open now · closes in about ${hoursLeft} hr`:"Open now · closes soon";
+  }else{
+    text.textContent=isWeekday?"Closed now · opens tomorrow at 9 AM":"Closed today · opens Monday at 9 AM";
+  }
+}
+
+updateLocationStatus();
+window.setInterval(updateLocationStatus,60000);
