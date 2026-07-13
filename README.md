@@ -1,8 +1,8 @@
-# Rosa Premium V10
+# Rosa Premium V11
 
-Focused correction release:
-- rebuilt header hierarchy
-- rebuilt map section
-- removed giant repeated footer logo
-- simplified and balanced footer
-- preserved Square sync and all dynamic services
+Final header/footer refinement:
+- premium compact header
+- map removed
+- redesigned visit/contact section
+- premium footer with focused brand CTA
+- Square sync preserved

@@ -503,3 +503,271 @@ footer:before{content:"R";position:absolute;right:5vw;bottom:0;color:rgba(255,25
 }
 
 .location-intro,.location-experience,.arrival-grid,.signature-footer,.footer-watermark,.footer-signature{display:none!important}
+
+
+/* V11 — premium header/footer, map removed */
+.header-luxe{
+  height:92px;
+  padding:0 clamp(18px,4vw,64px);
+  background:rgba(10,6,3,.95);
+  border-bottom:1px solid rgba(211,166,61,.28);
+  box-shadow:0 12px 34px rgba(0,0,0,.16);
+}
+.header-luxe.is-scrolled{
+  height:76px;
+  background:rgba(10,6,3,.98);
+}
+.brand-luxe{gap:15px}
+.brand-luxe img{
+  width:62px;
+  height:62px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(211,166,61,.3),0 14px 30px rgba(0,0,0,.24);
+}
+.brand-wordmark{display:grid;line-height:1}
+.brand-wordmark b{
+  color:var(--gold2);
+  font:700 clamp(22px,2vw,31px) "Cormorant Garamond",serif;
+}
+.brand-wordmark small{
+  margin-top:7px;
+  color:rgba(255,255,255,.56);
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.header-luxe nav{gap:28px}
+.header-luxe nav>a:not(.book){
+  color:rgba(255,255,255,.82);
+  font-size:11px;
+  letter-spacing:.02em;
+}
+.header-luxe nav>a:not(.book):hover{color:var(--gold2)}
+.header-luxe .book{
+  min-height:46px;
+  padding:0 22px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.header-luxe .book span{font-size:16px}
+
+.visit-signature{
+  background:
+    radial-gradient(circle at 10% 20%,rgba(211,166,61,.15),transparent 24%),
+    linear-gradient(180deg,#fffaf2,#f4e7d4);
+}
+.visit-signature-inner{
+  max-width:1220px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:44px;
+  align-items:center;
+}
+.visit-signature-copy h2{
+  margin:14px 0 20px;
+  color:var(--brown);
+  font:600 clamp(48px,6vw,78px)/.95 "Cormorant Garamond",serif;
+  letter-spacing:-.04em;
+}
+.visit-signature-copy>p:last-of-type{
+  max-width:560px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.8;
+}
+.visit-signature-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:28px;
+}
+.visit-signature-actions .btn{width:auto}
+
+.visit-signature-cards{
+  display:grid;
+  gap:14px;
+}
+.visit-signature-cards article{
+  padding:24px 26px;
+  border:1px solid rgba(91,53,29,.14);
+  border-radius:22px;
+  background:rgba(255,255,255,.8);
+  box-shadow:0 14px 36px rgba(44,26,14,.06);
+}
+.visit-signature-cards span{
+  display:block;
+  margin-bottom:10px;
+  color:var(--gold-dark);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.visit-signature-cards strong{
+  color:var(--brown);
+  font:700 25px/1.1 "Cormorant Garamond",serif;
+}
+.visit-signature-cards p{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.footer-premium{
+  position:relative;
+  padding:76px clamp(20px,6vw,92px) 28px;
+  overflow:hidden;
+  color:#fff;
+  background:
+    radial-gradient(circle at 80% 12%,rgba(211,166,61,.1),transparent 24%),
+    linear-gradient(180deg,#0b0704,#070402);
+}
+.footer-premium:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.05;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:54px 54px;
+}
+.footer-premium-top{
+  position:relative;
+  z-index:1;
+  max-width:1240px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.45fr .65fr 1fr .8fr;
+  gap:48px;
+}
+.footer-brand-block{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+}
+.footer-brand-block img{
+  width:88px;
+  height:88px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#fff;
+  flex:0 0 auto;
+}
+.footer-brand-block h2{
+  margin:6px 0 10px;
+  color:var(--gold2);
+  font:600 40px/1 "Cormorant Garamond",serif;
+}
+.footer-brand-block p:last-child{
+  max-width:360px;
+  color:rgba(255,255,255,.58);
+  font-size:12px;
+  line-height:1.7;
+}
+.footer-nav-block{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+.footer-nav-block p,
+.footer-nav-block a{
+  margin:0;
+  color:rgba(255,255,255,.62);
+  font-size:12px;
+  line-height:1.7;
+}
+.footer-nav-block a:hover{color:var(--gold2)}
+.footer-kicker{
+  color:var(--gold)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+.footer-premium-cta{
+  position:relative;
+  z-index:1;
+  max-width:1240px;
+  margin:58px auto 0;
+  padding:26px 28px;
+  border:1px solid rgba(211,166,61,.22);
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  background:rgba(255,255,255,.035);
+}
+.footer-premium-cta span{
+  display:block;
+  color:var(--gold);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.footer-premium-cta strong{
+  display:block;
+  margin-top:6px;
+  color:#fff;
+  font:600 31px/1 "Cormorant Garamond",serif;
+}
+.footer-premium-cta>a{
+  min-width:150px;
+  min-height:48px;
+  padding:0 20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:999px;
+  color:#111;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  font-size:11px;
+  font-weight:900;
+}
+.footer-premium-bottom{
+  position:relative;
+  z-index:1;
+  max-width:1240px;
+  margin:28px auto 0;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;
+  justify-content:space-between;
+  color:rgba(255,255,255,.34);
+  font-size:10px;
+}
+
+/* hide removed legacy map/footer blocks */
+.location-showcase,.location-intro,.location-experience,.arrival-grid,.footer-clean,.signature-footer,.map-card,.location-panel{display:none!important}
+
+@media(max-width:1050px){
+  .header-luxe nav{gap:17px}
+  .visit-signature-inner{grid-template-columns:1fr}
+  .footer-premium-top{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .header-luxe{height:76px;padding:0 16px}
+  .brand-luxe img{width:48px;height:48px}
+  .brand-wordmark b{font-size:21px}
+  .brand-wordmark small{font-size:7px}
+  .header-luxe nav{top:76px}
+  .header-luxe .menu{display:block;width:42px;height:42px}
+  .header-luxe .menu span{display:block;width:22px;height:2px;margin:5px auto;background:#fff}
+  .visit-signature-inner{gap:28px}
+  .visit-signature-copy h2{font-size:50px}
+  .visit-signature-actions{flex-direction:column}
+  .visit-signature-actions .btn{width:100%}
+  .footer-premium{padding:62px 18px 22px}
+  .footer-premium-top{grid-template-columns:1fr;gap:34px}
+  .footer-brand-block{flex-direction:column}
+  .footer-brand-block img{width:74px;height:74px}
+  .footer-premium-cta{align-items:flex-start;flex-direction:column;padding:24px 20px}
+  .footer-premium-cta>a{width:100%}
+  .footer-premium-bottom{flex-direction:column;gap:8px}
+}

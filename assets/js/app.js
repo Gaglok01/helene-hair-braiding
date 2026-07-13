@@ -329,3 +329,12 @@ if(mapFrame&&"IntersectionObserver" in window){
   },{threshold:.2});
   mapObserver.observe(mapFrame);
 }
+
+
+/* V11 — premium compact header on scroll */
+const premiumHeader=document.querySelector("#site-header");
+function updatePremiumHeader(){
+  premiumHeader?.classList.toggle("is-scrolled",window.scrollY>36);
+}
+window.addEventListener("scroll",updatePremiumHeader,{passive:true});
+updatePremiumHeader();
