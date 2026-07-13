@@ -1,106 +1,12 @@
-const BOOKING_URL = "https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services";
-
-const fallbackServices = [
-  {name:"Crochet Braids", description:"Beautiful protective styling with a polished finish.", price:"From $150", duration:"3 hr", image:null},
-  {name:"Cornrows", description:"Clean, precise braiding designed for comfort and lasting style.", price:"From $105", duration:"2 hr 20 min", image:null},
-  {name:"Men Cornrows", description:"Professional cornrow styles tailored for men.", price:"Price varies", duration:"45 min", image:null}
-];
-
-function escapeHtml(value=""){
-  return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
-}
-
-function serviceCard(service){
-  const image = service.image
-    ? `<div class="service-image"><img loading="lazy" src="${escapeHtml(service.image)}" alt="${escapeHtml(service.name)}"></div>`
-    : `<div class="service-image"></div>`;
-  return `
-    <article class="service-card reveal">
-      ${image}
-      <div class="service-body">
-        <h3>${escapeHtml(service.name)}</h3>
-        <p>${escapeHtml(service.description || "View current details and availability in Square.")}</p>
-        <div class="service-meta">
-          <div>
-            <div class="service-price">${escapeHtml(service.price || "View price")}</div>
-            <div class="service-duration">${escapeHtml(service.duration || "")}</div>
-          </div>
-          <a class="service-arrow" href="${BOOKING_URL}" target="_blank" rel="noopener" aria-label="Book ${escapeHtml(service.name)}">↗</a>
-        </div>
-      </div>
-    </article>`;
-}
-
-function renderServices(services){
-  const grid = document.querySelector("#service-grid");
-  const status = document.querySelector("#catalog-status");
-  const visible = services.slice(0, 9);
-  grid.innerHTML = visible.map(serviceCard).join("");
-  status.hidden = true;
-  observeReveals();
-}
-
-function renderGallery(services){
-  const gallery = document.querySelector("#gallery-grid");
-  const empty = document.querySelector("#gallery-empty");
-  const withImages = services.filter(service => service.image).slice(0, 12);
-  if(!withImages.length){
-    gallery.innerHTML = "";
-    empty.hidden = false;
-    return;
-  }
-  empty.hidden = true;
-  gallery.innerHTML = withImages.map(service => `
-    <a class="gallery-item reveal" href="${BOOKING_URL}" target="_blank" rel="noopener">
-      <img loading="lazy" src="${escapeHtml(service.image)}" alt="${escapeHtml(service.name)}">
-      <span class="gallery-caption">${escapeHtml(service.name)}</span>
-    </a>`).join("");
-  observeReveals();
-}
-
-async function loadCatalog(){
-  try{
-    const response = await fetch("/api/catalog", {headers:{"Accept":"application/json"}});
-    if(!response.ok) throw new Error(`Catalog request failed: ${response.status}`);
-    const payload = await response.json();
-    const services = Array.isArray(payload.services) && payload.services.length ? payload.services : fallbackServices;
-    renderServices(services);
-    renderGallery(services);
-  }catch(error){
-    console.warn(error);
-    document.querySelector("#catalog-status").textContent = "Square services will appear after the production API token is configured.";
-    renderServices(fallbackServices);
-    renderGallery(fallbackServices);
-  }
-}
-
-function observeReveals(){
-  const items = document.querySelectorAll(".reveal:not([data-observed])");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.12});
-  items.forEach(item => {
-    item.dataset.observed = "true";
-    observer.observe(item);
-  });
-}
-
-const toggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector("#main-nav");
-toggle?.addEventListener("click", () => {
-  const isOpen = nav.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", String(isOpen));
-});
-nav?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-  nav.classList.remove("open");
-  toggle?.setAttribute("aria-expanded", "false");
-}));
-
-document.querySelector("#year").textContent = new Date().getFullYear();
-observeReveals();
-loadCatalog();
+const BOOKING_URL="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services";
+const fallback=[{name:"Crochet Braids",description:"Beautiful protective styling with a polished finish.",price:"From $150",duration:"3 hr",image:null},{name:"Cornrows",description:"Clean, precise braiding designed for comfort and lasting style.",price:"From $105",duration:"2 hr 20 min",image:null},{name:"Men Cornrows",description:"Professional cornrow styles tailored for men.",price:"Price varies",duration:"45 min",image:null}];
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+const img=v=>typeof v==="string"&&/^https?:\/\//i.test(v.trim())?v.trim():null;
+const short=v=>{v=String(v??"").replace(/\s+/g," ").trim();return v.length>135?v.slice(0,135).trim()+"…":v};
+function card(s,i){const image=img(s.image),name=esc(s.name||"Hair Service");return `<article class="service-card reveal"><div class="service-image">${image?`<img src="${esc(image)}" alt="${name}" loading="${i<3?"eager":"lazy"}">`:""}</div><div class="service-body"><h3>${name}</h3><p>${esc(short(s.description||"View current details and availability through Square."))}</p><div class="service-meta"><div><div class="service-price">${esc(s.price||"View price")}</div>${s.duration?`<div class="service-duration">${esc(s.duration)}</div>`:""}</div><a class="service-arrow" href="${BOOKING_URL}" target="_blank" rel="noopener">↗</a></div></div></article>`}
+function services(list){document.querySelector("#service-grid").innerHTML=list.filter(x=>x?.name).slice(0,9).map(card).join("");document.querySelector("#catalog-status").hidden=true;observe()}
+function gallery(list){const g=document.querySelector("#gallery-grid"),e=document.querySelector("#gallery-empty"),withImages=list.filter(x=>x?.name&&img(x.image)).slice(0,14);if(!withImages.length){g.innerHTML="";e.hidden=false;return}e.hidden=true;g.innerHTML=withImages.map(x=>`<a class="gallery-item reveal" href="${BOOKING_URL}" target="_blank" rel="noopener"><img src="${esc(x.image)}" alt="${esc(x.name)}" loading="lazy"><span class="gallery-caption">${esc(x.name)}</span></a>`).join("");observe()}
+async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list)}catch(err){console.error(err);document.querySelector("#catalog-status").textContent="Temporary services are displayed.";services(fallback);gallery(fallback)}}
+let observer;function observe(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}observer??=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not([data-o])").forEach(x=>{x.dataset.o=1;observer.observe(x)})}
+const menu=document.querySelector(".menu"),nav=document.querySelector("#nav");menu?.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});nav?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
+document.querySelector("#year").textContent=new Date().getFullYear();observe();load();
