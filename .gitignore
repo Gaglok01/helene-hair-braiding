@@ -1,0 +1,7 @@
+# Secrets and local files
+.dev.vars
+.env
+.env.*
+node_modules/
+.wrangler/
+.DS_Store
