@@ -1,0 +1,17 @@
+{
+  "name": "Rosa's All About Hair",
+  "short_name": "Rosa's Hair",
+  "description": "African Hair Braiding, Barber and Beauty Salon in Lake Charles, Louisiana.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#100a06",
+  "theme_color": "#100a06",
+  "icons": [
+    {
+      "src": "/assets/images/rosa-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -10,9 +10,12 @@
 <meta property="og:title" content="Rosa's All About Hair | African Hair Braiding in Lake Charles">
 <meta property="og:description" content="Professional braiding, protective styles, barber and beauty services in Lake Charles, Louisiana.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="/assets/images/rosa-logo.png">
+<meta property="og:image" content="https://braidsbyrosa.com/assets/images/rosa-logo.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://braidsbyrosa.com/">
 <link rel="icon" href="/assets/images/rosa-logo.png">
+<link rel="apple-touch-icon" href="/assets/images/rosa-logo.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -123,7 +126,8 @@
   </nav>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
+<div class="sr-only" id="site-announcer" aria-live="polite"></div>
 <section class="hero">
   <div class="hero-inner reveal">
     <p class="eyebrow">Lake Charles, Louisiana</p>
@@ -304,7 +308,10 @@
   <div><img src="/assets/images/rosa-logo.png" alt="Rosa's logo"><p>African Hair Braiding<br>Barber & Beauty Salon</p></div>
   <div><b>Explore</b><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#about">About</a></div>
   <div><b>Contact</b><a href="tel:+13379128995">(337) 912-8995</a><a href="mailto:rosaliehounnou@yahoo.com">Email Rosa</a><a href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Square booking</a></div>
-  <small>© <span id="year"></span> Rosa's All About Hair • Lake Charles, Louisiana</small>
+  <small>
+  © <span id="year"></span> Rosa's All About Hair • Lake Charles, Louisiana
+  <span class="footer-status"><i></i> Online booking available</span>
+</small>
 </footer>
 
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Hairstyle preview">

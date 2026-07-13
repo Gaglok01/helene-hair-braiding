@@ -157,7 +157,7 @@ function gallery(list) {
   observe();
 }
 
-async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list)}catch(err){console.error(err);document.querySelector("#catalog-status").textContent="Temporary services are displayed.";services(fallback);gallery(fallback)}}
+async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list)}catch(err){console.error(err);const status=document.querySelector("#catalog-status");status.textContent="The live catalog is temporarily unavailable. Temporary services are displayed.";status.classList.add("is-error");services(fallback);gallery(fallback)}}
 let observer;function observe(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}observer??=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not([data-o])").forEach(x=>{x.dataset.o=1;observer.observe(x)})}
 const menu=document.querySelector(".menu"),nav=document.querySelector("#nav");menu?.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});nav?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
 
@@ -212,3 +212,53 @@ document.querySelector("#service-more")?.addEventListener("click",()=>{
   visibleServiceCount+=9;
   renderFilteredServices();
 });
+
+
+/* V6 — active navigation, online status and graceful retries */
+const announcer=document.querySelector("#site-announcer");
+
+function announce(message){
+  if(!announcer) return;
+  announcer.textContent="";
+  window.setTimeout(()=>announcer.textContent=message,50);
+}
+
+const observedSections=[...document.querySelectorAll("main section[id]")];
+const navLinks=[...document.querySelectorAll('.header nav a[href^="#"]')];
+
+if("IntersectionObserver" in window){
+  const sectionObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      navLinks.forEach(link=>{
+        const active=link.getAttribute("href")==="#"+entry.target.id;
+        if(active) link.setAttribute("aria-current","page");
+        else link.removeAttribute("aria-current");
+      });
+    });
+  },{rootMargin:"-35% 0px -55% 0px",threshold:0});
+  observedSections.forEach(section=>sectionObserver.observe(section));
+}
+
+window.addEventListener("online",()=>{
+  announce("You are back online.");
+  const status=document.querySelector("#catalog-status");
+  if(status?.classList.contains("is-error")) load();
+});
+
+window.addEventListener("offline",()=>{
+  announce("You are offline. Booking links may require an internet connection.");
+});
+
+const originalLoad=load;
+load=async function(){
+  const status=document.querySelector("#catalog-status");
+  try{
+    await originalLoad();
+    status?.classList.remove("is-error");
+    status?.classList.add("is-success");
+  }catch(error){
+    status?.classList.add("is-error");
+    throw error;
+  }
+};

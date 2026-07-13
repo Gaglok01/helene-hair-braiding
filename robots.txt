@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://braidsbyrosa.com/sitemap.xml
