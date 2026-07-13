@@ -133,3 +133,13 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 }
 
 document.querySelector("#year").textContent=new Date().getFullYear();observe();load();
+
+
+document.querySelectorAll(".faq-list details").forEach(detail => {
+  detail.addEventListener("toggle", () => {
+    if (!detail.open) return;
+    document.querySelectorAll(".faq-list details").forEach(other => {
+      if (other !== detail) other.open = false;
+    });
+  });
+});

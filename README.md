@@ -1,1 +1,1 @@
-Rosa Premium V3 — adds premium loader, filtered Square gallery, full-screen lightbox, swipe-ready mobile navigation, and subtle parallax. Keep SQUARE_ACCESS_TOKEN in Cloudflare.
+Rosa Premium V4 — adds brand trust, appointment preparation, and accessible FAQ while preserving Square sync.

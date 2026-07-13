@@ -54,3 +54,44 @@ footer{padding:70px clamp(18px,6vw,90px) 28px;display:grid;grid-template-columns
   .lightbox-prev{left:calc(50% - 58px)}.lightbox-next{right:calc(50% - 58px)}
 }
 @media(prefers-reduced-motion:reduce){.loader-ring:before{animation:none}}
+
+
+/* V4 — brand trust, appointment preparation, and FAQ */
+.trust-section{background:linear-gradient(180deg,#fffaf2,#f3e7d5)}
+.trust-grid{max-width:1220px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.trust-card{position:relative;min-height:280px;padding:30px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.75);box-shadow:0 14px 38px rgba(40,24,13,.06);overflow:hidden}
+.trust-card:before{content:"";position:absolute;inset:auto -50px -70px auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(211,166,61,.22),transparent 68%)}
+.trust-number{display:block;margin-bottom:48px;color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.16em}
+.trust-card h3{margin:0 0 12px;color:var(--brown);font:700 30px/1 "Cormorant Garamond",serif}
+.trust-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.75}
+
+.prep-section{background:radial-gradient(circle at 85% 10%,rgba(211,166,61,.14),transparent 22%),#f8efdf}
+.prep-grid{max-width:1220px;margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.prep-card{padding:32px;border-radius:26px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 40px rgba(40,24,13,.06)}
+.prep-card>span{display:inline-block;margin-bottom:28px;padding:8px 12px;border-radius:999px;background:#f4e6c7;color:#8a591d;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.prep-card h3{margin:0 0 12px;color:var(--brown);font:700 34px/1 "Cormorant Garamond",serif}
+.prep-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.75}
+
+.faq-wrap{max-width:1220px;margin:70px auto 0;display:grid;grid-template-columns:.8fr 1.2fr;gap:54px;padding:46px;border-radius:30px;background:#120b07;color:#fff}
+.faq-intro h2{margin:14px 0 16px;font:600 clamp(42px,5vw,70px)/.96 "Cormorant Garamond",serif}
+.faq-intro>p:last-child{color:rgba(255,255,255,.58);line-height:1.7}
+.faq-list details{border-bottom:1px solid rgba(255,255,255,.12)}
+.faq-list summary{list-style:none;cursor:pointer;padding:22px 42px 22px 0;position:relative;font-size:13px;font-weight:800}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:after{content:"+";position:absolute;right:0;top:17px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--gold2);font-size:18px;transition:.2s}
+.faq-list details[open] summary:after{content:"−";background:var(--gold);color:#111}
+.faq-list details p{margin:0;padding:0 40px 22px 0;color:rgba(255,255,255,.62);font-size:12px;line-height:1.75}
+
+footer{position:relative}
+footer:before{content:"R";position:absolute;right:5vw;bottom:0;color:rgba(255,255,255,.025);font:700 min(30vw,420px)/.7 "Cormorant Garamond",serif;pointer-events:none}
+
+@media(max-width:980px){
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .faq-wrap{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .trust-grid,.prep-grid{grid-template-columns:1fr}
+  .trust-card{min-height:auto}
+  .faq-wrap{padding:30px 22px;border-radius:24px;gap:24px}
+  .faq-list summary{padding-right:38px}
+}
