@@ -4,7 +4,64 @@ const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const img=v=>typeof v==="string"&&/^https?:\/\//i.test(v.trim())?v.trim():null;
 const short=v=>{v=String(v??"").replace(/\s+/g," ").trim();return v.length>135?v.slice(0,135).trim()+"…":v};
 function card(s,i){const image=img(s.image),name=esc(s.name||"Hair Service");return `<article class="service-card reveal"><div class="service-image">${image?`<img src="${esc(image)}" alt="${name}" loading="${i<3?"eager":"lazy"}">`:""}</div><div class="service-body"><h3>${name}</h3><p>${esc(short(s.description||"View current details and availability through Square."))}</p><div class="service-meta"><div><div class="service-price">${esc(s.price||"View price")}</div>${s.duration?`<div class="service-duration">${esc(s.duration)}</div>`:""}</div><a class="service-arrow" href="${BOOKING_URL}" target="_blank" rel="noopener">↗</a></div></div></article>`}
-function services(list){document.querySelector("#service-grid").innerHTML=list.filter(x=>x?.name).slice(0,9).map(card).join("");document.querySelector("#catalog-status").hidden=true;observe()}
+let allServices=[];
+let visibleServiceCount=9;
+let activeServiceFilter="all";
+let serviceSearchTerm="";
+
+function serviceCategory(name=""){
+  const value=name.toLowerCase();
+  if(value.includes("kid")) return "kids";
+  if(value.includes("men")||value.includes("male")) return "men";
+  if(value.includes("cornrow")||value.includes("stitch")) return "cornrows";
+  if(value.includes("loc")||value.includes("twist")) return "locs-twists";
+  if(value.includes("crochet")) return "crochet";
+  return "braids";
+}
+
+function serviceCategoryLabel(value){
+  return {"braids":"Braids","cornrows":"Cornrows","locs-twists":"Locs & twists","kids":"Kids","men":"Men","crochet":"Crochet"}[value]||value;
+}
+
+function buildServiceFilters(list){
+  const holder=document.querySelector("#service-filters");
+  if(!holder) return;
+  const categories=[...new Set(list.map(item=>item.category))];
+  holder.innerHTML=`<button type="button" class="service-filter active" data-service-filter="all">All services</button>${categories.map(category=>`<button type="button" class="service-filter" data-service-filter="${esc(category)}">${esc(serviceCategoryLabel(category))}</button>`).join("")}`;
+  holder.querySelectorAll(".service-filter").forEach(button=>{
+    button.addEventListener("click",()=>{
+      holder.querySelectorAll(".service-filter").forEach(item=>item.classList.remove("active"));
+      button.classList.add("active");
+      activeServiceFilter=button.dataset.serviceFilter;
+      visibleServiceCount=9;
+      renderFilteredServices();
+    });
+  });
+}
+
+function filteredServices(){
+  return allServices.filter(service=>{
+    const categoryMatch=activeServiceFilter==="all"||service.category===activeServiceFilter;
+    const searchMatch=!serviceSearchTerm||`${service.name} ${service.description||""}`.toLowerCase().includes(serviceSearchTerm);
+    return categoryMatch&&searchMatch;
+  });
+}
+
+function renderFilteredServices(){
+  const grid=document.querySelector("#service-grid");
+  const more=document.querySelector("#service-more");
+  const list=filteredServices();
+  grid.innerHTML=list.slice(0,visibleServiceCount).map(card).join("");
+  more.hidden=list.length<=visibleServiceCount;
+  observe();
+}
+
+function services(list){
+  allServices=list.filter(item=>item?.name).map(item=>({...item,category:serviceCategory(item.name)}));
+  buildServiceFilters(allServices);
+  renderFilteredServices();
+  document.querySelector("#catalog-status").hidden=true;
+}
 let galleryItems = [];
 let activeGalleryIndex = 0;
 
@@ -142,4 +199,16 @@ document.querySelectorAll(".faq-list details").forEach(detail => {
       if (other !== detail) other.open = false;
     });
   });
+});
+
+
+document.querySelector("#service-search-input")?.addEventListener("input",event=>{
+  serviceSearchTerm=event.target.value.trim().toLowerCase();
+  visibleServiceCount=9;
+  renderFilteredServices();
+});
+
+document.querySelector("#service-more")?.addEventListener("click",()=>{
+  visibleServiceCount+=9;
+  renderFilteredServices();
 });

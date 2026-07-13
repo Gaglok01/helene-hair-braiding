@@ -4,12 +4,108 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rosa's All About Hair | Lake Charles</title>
-<meta name="description" content="African hair braiding, barber and beauty services in Lake Charles, Louisiana.">
+<meta name="description" content="Rosa's All About Hair offers African hair braiding, protective styles, barber and beauty services in Lake Charles, Louisiana. Browse current services and book online.">
+<meta name="robots" content="index,follow">
+<meta name="author" content="Rosa's All About Hair">
+<meta property="og:title" content="Rosa's All About Hair | African Hair Braiding in Lake Charles">
+<meta property="og:description" content="Professional braiding, protective styles, barber and beauty services in Lake Charles, Louisiana.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/images/rosa-logo.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/images/rosa-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css?v=2">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HairSalon",
+      "name": "Rosa's All About Hair",
+      "telephone": "+1-337-912-8995",
+      "email": "rosaliehounnou@yahoo.com",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1200 North Martin Luther King Hwy, Suite 250",
+        "addressLocality": "Lake Charles",
+        "addressRegion": "LA",
+        "postalCode": "70601",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "09:00",
+          "closes": "17:00"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need to wash or dry my hair before coming?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The salon can handle washing, drying and preparation for your service."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are hair extensions included?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sometimes. Each Square service description will explain whether extensions are included."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a deposit required?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A deposit is required to secure the appointment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you accept children?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Children are welcome and age-appropriate styles are available."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I choose a different color or length?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, depending on availability. Some options may require an additional charge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I send a reference photo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is recommended, especially for custom styles, but it is not required."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="site-loader" id="site-loader" aria-hidden="true">
@@ -43,8 +139,21 @@
 
 <section class="section services" id="services">
   <div class="heading reveal"><p class="eyebrow">The Rosa experience</p><h2>Signature services, always current.</h2><p>Services, prices, descriptions, durations and photos come directly from Rosa's Square catalog.</p></div>
+  <div class="service-controls reveal">
+    <label class="service-search">
+      <span class="sr-only">Search services</span>
+      <input id="service-search-input" type="search" placeholder="Search a style…" autocomplete="off">
+    </label>
+    <div class="service-filters" id="service-filters">
+      <button type="button" class="service-filter active" data-service-filter="all">All services</button>
+    </div>
+  </div>
+
   <div id="catalog-status" class="status">Loading services from Square…</div>
   <div id="service-grid" class="service-grid"></div>
+  <div class="service-more-wrap">
+    <button id="service-more" class="service-more" type="button" hidden>Show more services</button>
+  </div>
   <p class="all-link"><a href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">View all services, prices and availability ↗</a></p>
 </section>
 
@@ -206,6 +315,12 @@
     <figcaption id="lightbox-caption"></figcaption>
   </figure>
   <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">›</button>
+</div>
+
+<div class="mobile-action-bar" aria-label="Quick actions">
+  <a href="tel:+13379128995">Call</a>
+  <a href="#services">Services</a>
+  <a class="mobile-book" href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Book now</a>
 </div>
 
 <a class="floating" href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Book now</a>

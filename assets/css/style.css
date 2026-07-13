@@ -95,3 +95,24 @@ footer:before{content:"R";position:absolute;right:5vw;bottom:0;color:rgba(255,25
   .faq-wrap{padding:30px 22px;border-radius:24px;gap:24px}
   .faq-list summary{padding-right:38px}
 }
+
+
+/* V5 — service discovery and mobile conversion */
+.service-controls{max-width:1220px;margin:0 auto 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.service-search{flex:0 1 320px}
+.service-search input{width:100%;height:46px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font:700 12px Manrope,sans-serif;outline:none}
+.service-search input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(211,166,61,.12)}
+.service-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.service-filter,.service-more{appearance:none;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--brown);font:900 9px Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.service-filter{padding:10px 14px}.service-filter:hover,.service-filter.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.service-more-wrap{text-align:center;margin-top:28px}.service-more{padding:13px 20px}.service-more:hover{background:var(--gold);border-color:var(--gold);color:#111}
+.mobile-action-bar{display:none}
+@media(max-width:980px){.service-controls{align-items:flex-start;flex-direction:column}.service-search{width:100%;flex-basis:auto}.service-filters{justify-content:flex-start}}
+@media(max-width:760px){
+  body{padding-bottom:72px}.floating{display:none}
+  .mobile-action-bar{position:fixed;left:10px;right:10px;bottom:10px;z-index:1000;display:grid;grid-template-columns:.75fr .9fr 1.35fr;gap:8px;padding:8px;border-radius:20px;background:rgba(16,10,6,.94);backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.32)}
+  .mobile-action-bar a{min-height:46px;display:grid;place-items:center;border-radius:14px;color:#fff;font-size:11px;font-weight:900}
+  .mobile-action-bar a:not(.mobile-book){background:rgba(255,255,255,.07)}
+  .mobile-action-bar .mobile-book{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#111}
+  .service-filters{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px}.service-filter{white-space:nowrap}
+}

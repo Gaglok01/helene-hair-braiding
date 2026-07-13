@@ -1,1 +1,1 @@
-Rosa Premium V4 — adds brand trust, appointment preparation, and accessible FAQ while preserving Square sync.
+Rosa Premium V5 — service search, filters, show-more, mobile CTA, and structured SEO data. Square sync preserved.
