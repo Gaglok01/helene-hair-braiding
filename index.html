@@ -129,6 +129,7 @@
 <main id="top" tabindex="-1">
 <div class="sr-only" id="site-announcer" aria-live="polite"></div>
 <section class="hero">
+  <div class="hero-media" id="hero-media" aria-hidden="true"></div>
   <div class="hero-inner reveal">
     <p class="eyebrow">Lake Charles, Louisiana</p>
     <div class="logo-wrap"><img src="/assets/images/rosa-logo.png" alt="Rosa's All About Hair"></div>
@@ -155,6 +156,17 @@
 
   <div id="catalog-status" class="status">Loading services from Square…</div>
   <div id="service-grid" class="service-grid"></div>
+  <section class="featured-rail reveal" id="featured-rail" aria-label="Featured styles">
+    <div class="featured-rail-head">
+      <div>
+        <p class="eyebrow">Featured styles</p>
+        <h3>Popular looks from Rosa</h3>
+      </div>
+      <a href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">See availability ↗</a>
+    </div>
+    <div class="featured-track" id="featured-track"></div>
+  </section>
+
   <div class="service-more-wrap">
     <button id="service-more" class="service-more" type="button" hidden>Show more services</button>
   </div>
@@ -300,6 +312,20 @@
       <div class="actions start"><a class="btn gold" href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Book now</a><a class="btn light" href="https://www.google.com/maps/search/?api=1&query=1200+North+Martin+Luther+King+Hwy+Suite+250+Lake+Charles+LA+70601" target="_blank" rel="noopener">Directions</a></div>
     </div>
     <div class="visit-art reveal"><img src="/assets/images/rosa-logo.png" alt=""></div>
+  </div>
+
+  <div class="map-card reveal">
+    <iframe
+      title="Map to Rosa's All About Hair"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=1200%20North%20Martin%20Luther%20King%20Hwy%20Suite%20250%20Lake%20Charles%20LA%2070601&output=embed">
+    </iframe>
+    <div class="map-overlay">
+      <span>Lake Charles, Louisiana</span>
+      <strong>Visit Rosa's All About Hair</strong>
+      <a href="https://www.google.com/maps/search/?api=1&query=1200+North+Martin+Luther+King+Hwy+Suite+250+Lake+Charles+LA+70601" target="_blank" rel="noopener">Open directions ↗</a>
+    </div>
   </div>
 </section>
 </main>

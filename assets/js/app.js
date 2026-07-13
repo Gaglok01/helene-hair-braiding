@@ -157,7 +157,7 @@ function gallery(list) {
   observe();
 }
 
-async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list)}catch(err){console.error(err);const status=document.querySelector("#catalog-status");status.textContent="The live catalog is temporarily unavailable. Temporary services are displayed.";status.classList.add("is-error");services(fallback);gallery(fallback)}}
+async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list);hydratePremiumMedia(list)}catch(err){console.error(err);const status=document.querySelector("#catalog-status");status.textContent="The live catalog is temporarily unavailable. Temporary services are displayed.";status.classList.add("is-error");services(fallback);gallery(fallback);hydratePremiumMedia(fallback)}}
 let observer;function observe(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}observer??=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not([data-o])").forEach(x=>{x.dataset.o=1;observer.observe(x)})}
 const menu=document.querySelector(".menu"),nav=document.querySelector("#nav");menu?.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});nav?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
 
@@ -262,3 +262,27 @@ load=async function(){
     throw error;
   }
 };
+
+
+function hydratePremiumMedia(list){
+  const images=list.filter(item=>item?.image);
+  const hero=document.querySelector("#hero-media");
+  if(hero&&images.length){
+    hero.style.backgroundImage=`url("${images[0].image}")`;
+    requestAnimationFrame(()=>hero.classList.add("is-ready"));
+  }
+
+  const track=document.querySelector("#featured-track");
+  if(track){
+    const featured=images.slice(0,8);
+    track.innerHTML=featured.map(item=>`
+      <article class="featured-item">
+        <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy">
+        <div class="featured-copy">
+          <h4>${esc(item.name)}</h4>
+          <p>${esc(item.price||"View current price")}${item.duration?` • ${esc(item.duration)}`:""}</p>
+          <a href="${BOOKING_URL}" target="_blank" rel="noopener">Book this style ↗</a>
+        </div>
+      </article>`).join("");
+  }
+}

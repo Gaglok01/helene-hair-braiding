@@ -1,12 +1,7 @@
-# Rosa Premium V6
+# Rosa Premium V7
 
-Production-polish release:
-- local SEO manifest, sitemap and robots
-- security and caching headers
-- friendly 404 page
-- keyboard focus improvements
-- active navigation states
-- offline/online announcements
-- Square catalog sync preserved
-
-Keep `SQUARE_ACCESS_TOKEN` configured in Cloudflare.
+Adds:
+- dynamic hero background from Square service images
+- featured styles rail
+- premium Google map section
+- keeps Square catalog sync and all V6 production polish
