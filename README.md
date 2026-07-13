@@ -1,1 +1,1 @@
-Rosa Premium V2 — complete replacement package. Keep the existing Cloudflare secret SQUARE_ACCESS_TOKEN.
+Rosa Premium V3 — adds premium loader, filtered Square gallery, full-screen lightbox, swipe-ready mobile navigation, and subtle parallax. Keep SQUARE_ACCESS_TOKEN in Cloudflare.

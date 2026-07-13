@@ -15,3 +15,42 @@ footer{padding:70px clamp(18px,6vw,90px) 28px;display:grid;grid-template-columns
 @media(max-width:980px){.service-grid{grid-template-columns:repeat(2,1fr)}.about-card,.visit-card{grid-template-columns:1fr}.about-art{min-height:420px}.visit-art{min-height:420px}.visit-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.header{height:72px;padding:0 16px}.brand img{width:46px;height:46px}.brand b{font-size:22px}.menu{display:block}.header nav{position:fixed;top:72px;left:0;right:0;display:none;flex-direction:column;align-items:stretch;padding:22px;background:rgba(16,10,6,.98)}.header nav.open{display:flex}.hero{padding:112px 18px 80px}.logo-wrap{width:144px;height:144px}.logo-wrap img{width:128px;height:128px}.hero h1{font-size:clamp(47px,14vw,64px)}.actions{flex-direction:column}.btn{width:100%}.section{padding:74px 18px}.heading h2,.about-copy h2,.visit-copy h2{font-size:44px}.service-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr;grid-auto-rows:auto}.gallery-item,.gallery-item:nth-child(n){grid-column:auto;grid-row:auto;aspect-ratio:4/5}.quote blockquote{font-size:45px}.about-card,.visit-card{border-radius:23px}.about-art{min-height:320px}.about-copy,.visit-copy{padding:40px 23px}.visit-art{min-height:330px;padding:32px}footer{grid-template-columns:1fr;gap:34px}.floating{left:18px;right:18px;text-align:center}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+
+
+/* V3 — premium loader, filters, and gallery lightbox */
+.site-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;background:radial-gradient(circle at center,rgba(211,166,61,.18),transparent 34%),#0b0704;color:var(--gold2);transition:opacity .55s ease,visibility .55s ease}
+.site-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.site-loader p{margin:0;font:600 24px "Cormorant Garamond",serif;letter-spacing:.03em}
+.loader-ring{width:126px;height:126px;padding:10px;border:1px solid rgba(242,214,133,.3);border-radius:50%;position:relative}
+.loader-ring:before{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid transparent;border-top-color:var(--gold2);animation:loaderSpin 1.2s linear infinite}
+.loader-ring img{width:100%;height:100%;object-fit:contain;border-radius:50%;background:#fff}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+
+.hero-inner{will-change:transform}
+.gallery-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:-16px 0 34px}
+.gallery-filter{appearance:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:10px 16px;background:transparent;color:rgba(255,255,255,.7);font:800 10px Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.gallery-filter:hover,.gallery-filter.active{background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:transparent;color:#111}
+.gallery-item[hidden]{display:none!important}
+.gallery-item{cursor:zoom-in}
+
+.lightbox{position:fixed;inset:0;z-index:3000;display:grid;place-items:center;padding:60px 80px;background:rgba(5,3,2,.94);backdrop-filter:blur(18px)}
+.lightbox[hidden]{display:none}
+.lightbox figure{margin:0;max-width:min(1000px,86vw);max-height:86vh;display:grid;gap:14px;justify-items:center}
+.lightbox figure img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.lightbox figcaption{color:#fff;font:600 25px "Cormorant Garamond",serif}
+.lightbox-close,.lightbox-nav{position:absolute;border:0;background:rgba(255,255,255,.09);color:#fff;cursor:pointer}
+.lightbox-close{right:24px;top:20px;width:48px;height:48px;border-radius:50%;font-size:30px}
+.lightbox-nav{top:50%;transform:translateY(-50%);width:52px;height:72px;border-radius:999px;font-size:42px}
+.lightbox-prev{left:22px}.lightbox-next{right:22px}
+.lightbox-close:hover,.lightbox-nav:hover{background:var(--gold);color:#111}
+
+@media(max-width:760px){
+  .site-loader p{font-size:21px}
+  .gallery-toolbar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+  .gallery-filter{white-space:nowrap}
+  .lightbox{padding:70px 14px 28px}
+  .lightbox figure{max-width:100%}
+  .lightbox-nav{top:auto;bottom:18px;width:48px;height:48px}
+  .lightbox-prev{left:calc(50% - 58px)}.lightbox-next{right:calc(50% - 58px)}
+}
+@media(prefers-reduced-motion:reduce){.loader-ring:before{animation:none}}

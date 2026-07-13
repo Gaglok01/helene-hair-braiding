@@ -12,6 +12,12 @@
 <link rel="stylesheet" href="/assets/css/style.css?v=2">
 </head>
 <body>
+<div class="site-loader" id="site-loader" aria-hidden="true">
+  <div class="loader-ring">
+    <img src="/assets/images/rosa-logo.png" alt="">
+  </div>
+  <p>Rosa's All About Hair</p>
+</div>
 <header class="header">
   <a class="brand" href="#top"><img src="/assets/images/rosa-logo.png" alt="Rosa's logo"><span><b>Rosa's</b><small>All About Hair</small></span></a>
   <button class="menu" aria-expanded="false" aria-controls="nav">☰</button>
@@ -46,7 +52,10 @@
 
 <section class="section gallery" id="gallery">
   <div class="heading left reveal"><p class="eyebrow">Selected work</p><h2>A living gallery powered by Square.</h2><p>Add, replace or remove a service image in Square and this gallery updates automatically.</p></div>
-  <div id="gallery-grid" class="gallery-grid"></div>
+  <div class="gallery-toolbar reveal" id="gallery-toolbar" aria-label="Gallery filters">
+  <button type="button" class="gallery-filter active" data-filter="all">All styles</button>
+</div>
+<div id="gallery-grid" class="gallery-grid"></div>
   <div id="gallery-empty" class="empty" hidden>Add service images in Square and they will appear here.</div>
 </section>
 
@@ -78,6 +87,16 @@
   <div><b>Contact</b><a href="tel:+13379128995">(337) 912-8995</a><a href="mailto:rosaliehounnou@yahoo.com">Email Rosa</a><a href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Square booking</a></div>
   <small>© <span id="year"></span> Rosa's All About Hair • Lake Charles, Louisiana</small>
 </footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Hairstyle preview">
+  <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">‹</button>
+  <figure>
+    <img id="lightbox-image" src="" alt="">
+    <figcaption id="lightbox-caption"></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">›</button>
+</div>
 
 <a class="floating" href="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services" target="_blank" rel="noopener">Book now</a>
 <script src="/assets/js/app.js?v=2" defer></script>
