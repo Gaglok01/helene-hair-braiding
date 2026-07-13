@@ -1,9 +1,7 @@
-# Rosa Premium V8
+# Rosa Premium V9
 
-Map-focused release:
-- premium two-column location experience
-- live open/closed salon status in America/Chicago
-- clearer address, call and directions actions
-- branded map pin card
-- polished mobile layout
-- Square sync preserved
+Refines:
+- map surroundings with intro, arrival tips and better visual hierarchy
+- keeps the large footer logo as a subtle, intentional watermark
+- adds a signature footer statement
+- preserves Square sync

@@ -323,3 +323,18 @@ function updateLocationStatus(){
 
 updateLocationStatus();
 window.setInterval(updateLocationStatus,60000);
+
+
+/* V9 — subtle map reveal */
+const mapFrame=document.querySelector(".map-frame");
+if(mapFrame&&"IntersectionObserver" in window){
+  const mapObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        mapFrame.classList.add("map-ready");
+        mapObserver.disconnect();
+      }
+    });
+  },{threshold:.2});
+  mapObserver.observe(mapFrame);
+}
