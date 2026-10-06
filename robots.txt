@@ -1,3 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
-Sitemap: /sitemap.xml
+Sitemap: https://helenebraids.com/sitemap.xml
+
