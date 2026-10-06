@@ -1,8 +1,15 @@
-# Rosa Premium V11
+# Helene Hair Braiding Premium
 
-Final header/footer refinement:
-- premium compact header
-- map removed
-- redesigned visit/contact section
-- premium footer with focused brand CTA
-- Square sync preserved
+Premium website for Helene Hair Braiding.
+
+## Features
+
+- Live Square catalog
+- Online Square booking
+- Dynamic service pricing
+- Service images
+- Featured styles
+- Responsive mobile design
+- Gallery
+- FAQ
+- Location and contact information

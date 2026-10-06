@@ -1,14 +1,14 @@
-{
-  "name": "Rosa's All About Hair",
-  "short_name": "Rosa's Hair",
-  "description": "African Hair Braiding, Barber and Beauty Salon in Lake Charles, Louisiana.",
+﻿{
+  "name": "Helene Hair Braiding",
+  "short_name": "Helene Hair",
+  "description": "African Hair Braiding and Protective Styles in Denton, Texas.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#100a06",
   "theme_color": "#100a06",
   "icons": [
     {
-      "src": "/assets/images/rosa-logo.png",
+      "src": "/assets/images/helene-hair-braiding-logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

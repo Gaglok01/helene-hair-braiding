@@ -3,3 +3,8 @@
 .dev.vars
 node_modules/
 .wrangler/
+
+# Local development backups
+*.before-*.html
+*.before-*.js
+*.before-*.css

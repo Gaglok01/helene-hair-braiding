@@ -1,9 +1,61 @@
-const BOOKING_URL="https://book.squareup.com/appointments/6wbu997dkzpv60/location/LYX600Y176JVJ/services";
+﻿const BOOKING_URL="https://square.site/book/LPMDDWYGKW5QB/helenebraids-denton-tx";
 const fallback=[{name:"Crochet Braids",description:"Beautiful protective styling with a polished finish.",price:"From $150",duration:"3 hr",image:null},{name:"Cornrows",description:"Clean, precise braiding designed for comfort and lasting style.",price:"From $105",duration:"2 hr 20 min",image:null},{name:"Men Cornrows",description:"Professional cornrow styles tailored for men.",price:"Price varies",duration:"45 min",image:null}];
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+const esc=v=>String(v ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
 const img=v=>typeof v==="string"&&/^https?:\/\//i.test(v.trim())?v.trim():null;
-const short=v=>{v=String(v??"").replace(/\s+/g," ").trim();return v.length>135?v.slice(0,135).trim()+"…":v};
-function card(s,i){const image=img(s.image),name=esc(s.name||"Hair Service");return `<article class="service-card reveal"><div class="service-image">${image?`<img src="${esc(image)}" alt="${name}" loading="${i<3?"eager":"lazy"}">`:""}</div><div class="service-body"><h3>${name}</h3><p>${esc(short(s.description||"View current details and availability through Square."))}</p><div class="service-meta"><div><div class="service-price">${esc(s.price||"View price")}</div>${s.duration?`<div class="service-duration">${esc(s.duration)}</div>`:""}</div><a class="service-arrow" href="${BOOKING_URL}" target="_blank" rel="noopener">↗</a></div></div></article>`}
+const short=v=>{v=String(v ?? "").replace(/\s+/g," ").trim();return v.length>135?v.slice(0,135).trim()+"...":v};
+function card(s,i){
+  const image=img(s.image);
+  const name=esc(s.name||"Hair Service");
+
+  return `<article
+    class="service-card reveal"
+    data-service-id="${esc(s.id||"")}"
+    tabindex="0"
+    role="button"
+    aria-label="View ${name} details">
+
+    <div class="service-image">
+      ${image
+        ?`<img src="${esc(image)}"
+               alt="${name}"
+               loading="${i<3?"eager":"lazy"}">`
+        :""
+      }
+    </div>
+
+    <div class="service-body">
+      <h3>${name}</h3>
+
+      <p>${esc(short(
+        s.description||
+        "View service details, options and availability."
+      ))}</p>
+
+      <div class="service-meta">
+        <div>
+          <div class="service-price">
+            ${esc(s.price||"View price")}
+          </div>
+
+          ${s.duration
+            ?`<div class="service-duration">
+                ${esc(s.duration)}+
+              </div>`
+            :""
+          }
+        </div>
+
+        <button
+          class="service-arrow"
+          type="button"
+          aria-label="View ${name}">
+          ↗
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
 let allServices=[];
 let visibleServiceCount=9;
 let activeServiceFilter="all";
@@ -158,7 +210,7 @@ function gallery(list) {
 }
 
 async function load(){try{const r=await fetch("/api/catalog",{headers:{Accept:"application/json"},cache:"no-store"});if(!r.ok)throw Error(r.status);const p=await r.json(),list=Array.isArray(p.services)&&p.services.length?p.services:fallback;services(list);gallery(list);hydratePremiumMedia(list)}catch(err){console.error(err);const status=document.querySelector("#catalog-status");status.textContent="The live catalog is temporarily unavailable. Temporary services are displayed.";status.classList.add("is-error");services(fallback);gallery(fallback);hydratePremiumMedia(fallback)}}
-let observer;function observe(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}observer??=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not([data-o])").forEach(x=>{x.dataset.o=1;observer.observe(x)})}
+let observer;function observe(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));return}observer ??= new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not([data-o])").forEach(x=>{x.dataset.o=1;observer.observe(x)})}
 const menu=document.querySelector(".menu"),nav=document.querySelector("#nav");menu?.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(open))});nav?.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
 
 const loader = document.querySelector("#site-loader");
@@ -214,7 +266,7 @@ document.querySelector("#service-more")?.addEventListener("click",()=>{
 });
 
 
-/* V6 — active navigation, online status and graceful retries */
+/* V6 &mdash; active navigation, online status and graceful retries */
 const announcer=document.querySelector("#site-announcer");
 
 function announce(message){
@@ -276,19 +328,19 @@ function hydratePremiumMedia(list){
   if(track){
     const featured=images.slice(0,8);
     track.innerHTML=featured.map(item=>`
-      <article class="featured-item">
+      <article class="featured-item" data-service-id="${esc(item.id||"")}">
         <img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy">
         <div class="featured-copy">
           <h4>${esc(item.name)}</h4>
-          <p>${esc(item.price||"View current price")}${item.duration?` • ${esc(item.duration)}`:""}</p>
-          <a href="${BOOKING_URL}" target="_blank" rel="noopener">Book this style ↗</a>
+          <p>${esc(item.price||"View current price")}${item.duration?` &bull; ${esc(item.duration)}`:""}</p>
+          <button class="featured-service-open" type="button">Book this style &rarr;</button>
         </div>
       </article>`).join("");
   }
 }
 
 
-/* V8 — live salon status */
+/* V8 &mdash; live salon status */
 function updateLocationStatus(){
   const text=document.querySelector("#location-status-text");
   if(!text) return;
@@ -309,14 +361,14 @@ function updateLocationStatus(){
   const isOpen=isWeekday&&currentMinutes>=540&&currentMinutes<1020;
 
   text.textContent=isOpen
-    ? "Open now · closes at 5:00 PM"
-    : (isWeekday ? "Closed now · opens tomorrow at 9:00 AM" : "Closed today · opens Monday at 9:00 AM");
+    ? "Open now &middot; closes at 5:00 PM"
+    : (isWeekday ? "Closed now &middot; opens tomorrow at 9:00 AM" : "Closed today &middot; opens Monday at 9:00 AM");
 }
 updateLocationStatus();
 window.setInterval(updateLocationStatus,60000);
 
 
-/* V9 — subtle map reveal */
+/* V9 &mdash; subtle map reveal */
 const mapFrame=document.querySelector(".map-frame");
 if(mapFrame&&"IntersectionObserver" in window){
   const mapObserver=new IntersectionObserver(entries=>{
@@ -331,10 +383,237 @@ if(mapFrame&&"IntersectionObserver" in window){
 }
 
 
-/* V11 — premium compact header on scroll */
+/* V11 &mdash; premium compact header on scroll */
 const premiumHeader=document.querySelector("#site-header");
 function updatePremiumHeader(){
   premiumHeader?.classList.toggle("is-scrolled",window.scrollY>36);
 }
 window.addEventListener("scroll",updatePremiumHeader,{passive:true});
 updatePremiumHeader();
+
+
+/* =========================================================
+   HELENE SERVICE DETAIL EXPERIENCE
+   ========================================================= */
+
+function variationRank(name=""){
+  const value=name.toLowerCase();
+
+  const size=
+    value.includes("small-medium") ? 10 :
+    value.startsWith("small") ? 10 :
+    value.startsWith("medium") ? 20 :
+    value.startsWith("large") ? 30 : 40;
+
+  const length=
+    value.includes("shoulder") ? 1 :
+    value.includes("bra length") ? 2 :
+    value.includes("middle") ? 3 :
+    value.includes("mid back") ? 3 :
+    value.includes("waist") ? 4 :
+    value.includes("butt") ? 5 : 6;
+
+  return size*10+length;
+}
+
+function openServiceModal(service){
+
+  const bookButton=document.querySelector(".service-modal-book");
+
+  if(bookButton && service?.id){
+    bookButton.href=
+      "https://book.squareup.com/appointments/0b6mjjvy3fgq3r/location/LPMDDWYGKW5QB/services/"
+      + encodeURIComponent(service.id);
+  }
+
+
+
+
+
+  const modal=document.querySelector("#service-modal");
+  if(!modal||!service)return;
+
+  const imageEl=document.querySelector("#service-modal-image");
+  const title=document.querySelector("#service-modal-title");
+  const description=document.querySelector("#service-modal-description");
+  const price=document.querySelector("#service-modal-price");
+  const options=document.querySelector("#service-modal-options");
+  const selected=document.querySelector("#service-modal-selected");
+
+  title.textContent=service.name||"Hair Service";
+
+  description.textContent=
+    service.description||
+    "Explore the available options for this service.";
+
+  price.textContent=service.price||"View price";
+
+  if(service.image){
+    imageEl.src=service.image;
+    imageEl.alt=service.name||"Hair service";
+    imageEl.hidden=false;
+  }else{
+    imageEl.removeAttribute("src");
+    imageEl.alt="";
+    imageEl.hidden=true;
+  }
+
+  const variations=[...(service.variations||[])]
+    .filter(v=>v.bookable!==false)
+    .sort((a,b)=>
+      variationRank(a.name)-variationRank(b.name)
+    );
+
+  if(variations.length){
+
+    options.innerHTML=variations.map((v,index)=>`
+      <button
+        class="service-option"
+        type="button"
+        data-variation-index="${index}">
+
+        <span>
+          <span class="service-option-name">
+            ${esc(v.name||"Standard")}
+          </span>
+
+          ${v.duration
+            ?`<span class="service-option-duration">
+                Estimated time · ${esc(v.duration)}
+              </span>`
+            :""
+          }
+        </span>
+
+        <span class="service-option-price">
+          ${esc(v.price||"Price varies")}
+        </span>
+      </button>
+    `).join("");
+
+    options.querySelectorAll(".service-option")
+      .forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+          options.querySelectorAll(".service-option")
+            .forEach(item=>
+              item.classList.remove("is-selected")
+            );
+
+          button.classList.add("is-selected");
+
+          const variation=
+            variations[
+              Number(button.dataset.variationIndex)
+            ];
+
+          selected.textContent=
+            `${variation.name} · `+
+            `${variation.price||"Price varies"}`+
+            `${variation.duration
+              ?` · ${variation.duration}`
+              :""
+            }`;
+        });
+
+      });
+
+  }else{
+    options.innerHTML=`
+      <div class="service-option">
+        <span>
+          <span class="service-option-name">
+            Contact Helene for this service
+          </span>
+        </span>
+        <span class="service-option-price">
+          ${esc(service.price||"Price varies")}
+        </span>
+      </div>`;
+  }
+
+  selected.textContent="Select an option above";
+
+  modal.hidden=false;
+  document.body.classList.add("service-modal-open");
+
+  requestAnimationFrame(()=>{
+    modal.querySelector(".service-modal-close")?.focus();
+  });
+}
+
+function closeServiceModal(){
+  const modal=document.querySelector("#service-modal");
+  if(!modal)return;
+
+  modal.hidden=true;
+  document.body.classList.remove("service-modal-open");
+}
+
+document.addEventListener("click",event=>{
+
+  const featured=event.target.closest(".featured-item");
+
+  if(featured){
+    const service=allServices.find(
+      item=>item.id===featured.dataset.serviceId
+    );
+
+    if(service){
+      event.preventDefault();
+      openServiceModal(service);
+      return;
+    }
+  }
+
+
+  const card=event.target.closest(".service-card");
+
+  if(card){
+    const service=allServices.find(
+      item=>item.id===card.dataset.serviceId
+    );
+
+    if(service){
+      event.preventDefault();
+      openServiceModal(service);
+      return;
+    }
+  }
+
+  if(event.target.closest("[data-service-close]")){
+    closeServiceModal();
+  }
+});
+
+document.addEventListener("keydown",event=>{
+
+  if(event.key==="Escape"){
+    closeServiceModal();
+  }
+
+  if(
+    (event.key==="Enter"||event.key===" ") &&
+    event.target.classList.contains("service-card")
+  ){
+    event.preventDefault();
+
+    const service=allServices.find(
+      item=>item.id===event.target.dataset.serviceId
+    );
+
+    if(service){
+      openServiceModal(service);
+    }
+  }
+});
+
+
+
+
+
+
+
+
+
